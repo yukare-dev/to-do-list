@@ -1,29 +1,53 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { Check, X } from "react-feather";
 
 interface InlineTaskFormProps {
-    onAddTask: (title: string) => void;
-    onCancel: () => void;
+  onAddTask: (title: string) => void;
+  onCancel: () => void;
 }
 
-const InlineTaskForm = ({ onAddTask, onCancel}: InlineTaskFormProps) => {
-    const [inputValue, setInputValue] = useState('');
+const InlineTaskForm = ({ onAddTask, onCancel }: InlineTaskFormProps) => {
+  const [inputValue, setInputValue] = useState("");
 
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-        if (inputValue.trim() === '') return;
-        onAddTask(inputValue);
-        setInputValue('');
-    };
+  const handleSubmit = (event: React.FormEvent) => {
+    console.log("123342");
 
-    return (
-        <form onSubmit={handleSubmit} id='taskTitle' name='taskTitle' className=' shadow-md p-4 rounded-lg'>
-            <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder='Type your task...' className='w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' autoFocus/>
-            <div className='flex justify-end gap-2 mt-3'>
-                <button type='button' onClick={onCancel} className='px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-200'>Cancelar</button>
-                <button type='submit' onClick={onCancel} className='px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-bue-700'>Add task</button>
-            </div>
-        </form>
-    )
-}
+    event.preventDefault();
+    if (inputValue.trim() === "") return;
+    onAddTask(inputValue);
+    setInputValue("");
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      id="taskTitle"
+      name="addNewTask"
+      className="w-full flex gap-2 flex-nowrap"
+    >
+      <input
+        type="text"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder="Type your task..."
+        className="flex-1 p-2 border text-sm text-[#393D3F] border-gray-300 rounded-lg focus:outline-none"
+        autoFocus
+      />
+      <button
+        type="submit"
+        className="px-2 py-2 text-sm  text-blue-600 rounded-lg hover:text-blue-800 cursor-pointer"
+      >
+        <Check width={20} height={20} />
+      </button>
+      <button
+        onClick={onCancel}
+        type="button"
+        className="px-2 py-2 text-sm text-gray-500 rounded-lg hover:text-gray-700 cursor-pointer"
+      >
+        <X width={20} height={20} />
+      </button>
+    </form>
+  );
+};
 
 export default InlineTaskForm;
